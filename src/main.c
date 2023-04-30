@@ -17,7 +17,7 @@ int main(void)
     geoInitialize();
     femGeo* theGeometry = geoGetGeometry();
     theGeometry->elementType = FEM_QUAD;
-    geoMeshRead("../data/data.txt");
+    geoMeshRead("../data/mesh.txt");
         
 //
 //  -2- Creation probleme 
