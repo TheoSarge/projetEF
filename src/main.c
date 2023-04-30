@@ -37,11 +37,11 @@ int main(void)
     ErrorScan(fscanf(file, "Gravity : %le", &g));
     fclose(file);
 
-    femProblem* theProblem = femElasticityCreate(theGeometry,E,nu,rho,g,PLANAR_STRAIN);
+    femProblem* theProblem = femElasticityCreate(theGeometry,E,nu,rho,g,AXISYM);
     femElasticityAddBoundaryCondition(theProblem,"Symmetry",DIRICHLET_X,0.0);
     femElasticityAddBoundaryCondition(theProblem,"Bottom",DIRICHLET_Y,0.0);
     femElasticityPrint(theProblem);
-    double *theSoluce = femElasticitySolve(theProblem); 
+    double *theSoluce = femElasticitySolve(theProblem);
    
 //
 //  -3- Deformation du maillage pour le plot final

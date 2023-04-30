@@ -56,10 +56,15 @@ double *femElasticitySolve(femProblem *theProblem)
                 for(j = 0; j < theSpace->n; j++) {
                     theSystem->A[map[i]][map[j]] += (dphidx[i] * dphidx[j]
                                                      + dphidy[i] * dphidy[j]) * jac * weight;
-                    A[2*map[i]][2*map[j]] += (dphidx[i] * a * dphidx[j] + dphidy[i] * c * dphidy[j]) * jac * weight ;
+                    /*A[2*map[i]][2*map[j]] += (dphidx[i] * a * dphidx[j] + dphidy[i] * c * dphidy[j]) * jac * weight ;
                     A[2*map[i]][2*map[j]+1] += (dphidx[i] * b * dphidy[j] + dphidy[i] * c * dphidx[j]) * jac * weight;
                     A[2*map[i]+1][2*map[j]] += (dphidy[i] * b * dphidx[j] + dphidx[i] * c * dphidy[j]) * jac * weight;
-                    A[2*map[i]+1][2*map[j]+1] += (dphidy[i] * a * dphidy[j] + dphidx[i] * c * dphidx[j]) * jac * weight;
+                    A[2*map[i]+1][2*map[j]+1] += (dphidy[i] * a * dphidy[j] + dphidx[i] * c * dphidx[j]) * jac * weight;*/
+
+                    A[2*map[i]][2*map[j]] += (dphidx[i] * a * dphidx[j] * x[i] + dphidy[i] * c * dphidy[j] * x[i] + b * dphidx[i] * phi[i] + phi[i]*(b * dphidx[j] + (a * phi[j])/x[i] )) * jac * weight ;
+                    A[2*map[i]][2*map[j]+1] += (dphidx[i] * b * dphidy[j] * x[i] + dphidy[i] * c * dphidx[j] * x[i] + b * dphidy[i] * phi[j]) * jac * weight;
+                    A[2*map[i]+1][2*map[j]] += (dphidy[i] * b * dphidx[j] * x[i] + dphidx[i] * c * dphidy[j] * x[i] + b * phi[i] * dphidy[j]) * jac * weight;
+                    A[2*map[i]+1][2*map[j]+1] += (dphidy[i] * a * dphidy[j] * x[i] + dphidx[i] * c * dphidx[j] * x[i]) * jac * weight;
 
                 }
             }
